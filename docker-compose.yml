@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  besu-node1:
+    image: hyperledger/besu:latest
+    command: [
+      "--network=dev",
+      "--miner-enabled",
+      "--miner-coinbase=0x0000000000000000000000000000000000000000",
+      "--rpc-http-enabled",
+      "--host-whitelist=*"
+    ]
+    ports:
+      - "8545:8545"
+
+  besu-node2:
+    image: hyperledger/besu:latest
+    command: [
+      "--network=dev",
+      "--rpc-http-enabled",
+      "--host-whitelist=*"
+    ]
+    ports:
+      - "8546:8545"
+
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - besu-node1
