@@ -7,7 +7,7 @@ app = Flask(__name__)
 w3 = Web3(Web3.HTTPProvider('http://besu-node1:8545'))
 
 @app.route('/send', methods=['POST'])
-def create_transaction():
+def send():
     data = request.get_json()
     # Send transaction
     # tx_hash = tx.send(w3, data['to'], data['amount'])
@@ -17,10 +17,12 @@ def create_transaction():
     
     return jsonify({'status': 'Transaction submitted'})
 
-@app.route('/peers', methods=['GET'])
-def get_peers():
-    peers.add_nodes()
-    return jsonify({'status': 'Nodes peers function called'})
+@app.route('/add-peer', methods=['POST'])
+def app_peer():
+    data = request.get_json()
+    # Give permission to the address
+    result = peers.add_peer(w3, data['enode'])
+    return jsonify({'status': result.text})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

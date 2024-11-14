@@ -1,177 +1,6 @@
 # Discovery of peers method used: bootnodes
 
 services:
-  besu-node1:
-    image: hyperledger/besu:latest
-    restart: on-failure
-    container_name: besu-node1
-    volumes:
-      - ./data/besu-node1:/var/lib/besu
-      - ./config/nodes/1/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/1/permissions_config.toml:/var/lib/besu/permissions_config.toml
-      - ./config/nodes/1/key:/var/lib/besu/key
-    networks:
-      - besu-network
-    ports:
-      - "8545:8545"
-      - "9545:9545"
-      - "30303:30303"
-    command: [
-
-      # Must parameters
-      "--identity=node1",
-      "--data-path=/var/lib/besu",
-      "--genesis-file=/var/lib/besu/genesis.json",
-
-      # P2P
-      "--p2p-port=30303", # 30303 + 0
-
-      # Permissioned network parameters
-      "--permissions-nodes-config-file-enabled",
-      "--permissions-accounts-config-file-enabled",
-
-      # RPC protocol for requests
-      "--rpc-http-enabled",
-      "--rpc-http-api=ADMIN,ETH,NET,PERM,IBFT",
-      "--host-allowlist=\"*\"",
-      "--rpc-http-cors-origins=\"*\"",
-      "--rpc-http-port=8545", # 8545 + 0
-
-      # Metrics
-      "--metrics-enabled=true",
-      "--metrics-port=9545", # 9545 + 0
-      "--metrics-host=0.0.0.0",
-
-    ]
-
-  besu-node2:
-    image: hyperledger/besu:latest
-    restart: on-failure
-    container_name: besu-node2
-    volumes:
-      - ./data/besu-node2:/var/lib/besu
-      - ./config/nodes/2/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/2/permissions_config.toml:/var/lib/besu/permissions_config.toml
-      - ./config/nodes/2/key:/var/lib/besu/key
-    networks:
-      - besu-network
-    ports:
-      - "8546:8546"
-      - "9546:9546"
-      - "30304:30304"
-    command: [
-      
-      # Must parameters
-      "--identity=besu-node2",
-      "--data-path=/var/lib/besu",
-      "--genesis-file=/var/lib/besu/genesis.json",
-
-      # P2P
-      "--p2p-port=30304", # 30303 + 1
-
-      # Permissioned network parameters
-      "--permissions-nodes-config-file-enabled",
-      "--permissions-accounts-config-file-enabled",
-
-      # RPC protocol for requests
-      "--rpc-http-enabled",
-      "--rpc-http-api=ADMIN,ETH,NET,PERM,IBFT",
-      "--host-allowlist=\"*\"",
-      "--rpc-http-cors-origins=\"*\"",
-      "--rpc-http-port=8546", # 8545 + 1
-
-      # Metrics
-      "--metrics-enabled=true",
-      "--metrics-port=9546", # 9545 + 1
-      "--metrics-host=0.0.0.0", # localhost
-
-    ]
-
-  besu-node3:
-    image: hyperledger/besu:latest
-    restart: on-failure
-    container_name: besu-node3
-    volumes:
-      - ./data/besu-node3:/var/lib/besu
-      - ./config/nodes/3/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/3/permissions_config.toml:/var/lib/besu/permissions_config.toml
-      - ./config/nodes/3/key:/var/lib/besu/key
-    networks:
-      - besu-network
-    ports:
-      - "8547:8547"
-      - "9547:9547"
-      - "30305:30305"
-    command: [
-      
-      # Must parameters
-      "--identity=besu-node3",
-      "--data-path=/var/lib/besu",
-      "--genesis-file=/var/lib/besu/genesis.json",
-
-      # P2P
-      "--p2p-port=30305", # 30303 + 2
-
-      # Permissioned network parameters
-      "--permissions-nodes-config-file-enabled",
-      "--permissions-accounts-config-file-enabled",
-
-      # RPC protocol for requests
-      "--rpc-http-enabled",
-      "--rpc-http-api=ADMIN,ETH,NET,PERM,IBFT",
-      "--host-allowlist=\"*\"",
-      "--rpc-http-cors-origins=\"*\"",
-      "--rpc-http-port=8547", # 8545 + 2
-
-      # Metrics
-      "--metrics-enabled=true",
-      "--metrics-port=9547", # 9545 + 2
-      "--metrics-host=0.0.0.0"
-
-    ]
-
-  besu-node4:
-    image: hyperledger/besu:latest
-    restart: on-failure
-    container_name: besu-node4
-    volumes:
-      - ./data/besu-node4:/var/lib/besu
-      - ./config/nodes/4/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/4/permissions_config.toml:/var/lib/besu/permissions_config.toml
-      - ./config/nodes/4/key:/var/lib/besu/key
-    networks:
-      - besu-network
-    ports:
-      - "8548:8548"
-      - "9548:9548"
-      - "30306:30306"
-    command: [
-      
-      # Must parameters
-      "--identity=besu-node4",
-      "--data-path=/var/lib/besu",
-      "--genesis-file=/var/lib/besu/genesis.json",
-
-      # P2P
-      "--p2p-port=30306", # 30303 + 3
-
-      # Permissioned network parameters
-      "--permissions-nodes-config-file-enabled",
-      "--permissions-accounts-config-file-enabled",
-
-      # RPC protocol for requests
-      "--rpc-http-enabled",
-      "--rpc-http-api=ADMIN,ETH,NET,PERM,IBFT",
-      "--host-allowlist=\"*\"",
-      "--rpc-http-cors-origins=\"*\"",
-      "--rpc-http-port=8548", # 8545 + 3
-
-      # Metrics
-      "--metrics-enabled=true",
-      "--metrics-port=9548", # 9545 + 3
-      "--metrics-host=0.0.0.0"
-
-    ]
 
   flask-app:
     build: .
@@ -180,11 +9,106 @@ services:
     networks:
       - besu-network
     depends_on:
-      - besu-node1
-      - besu-node2
-      - besu-node3
-      - besu-node4
+      - node-a
+
+  node-a:
+    image: hyperledger/besu:latest
+    container_name: node-a
+    hostname: node-a
+    # restart: on-failure
+    volumes:
+      - ./data/1:/var/lib/besu
+      - ./config/nodes/1/genesis.json:/var/lib/besu/genesis.json
+      - ./config/nodes/1/permissions_config.toml:/var/lib/besu/permissions_config.toml
+      - ./config/nodes/1/key:/var/lib/besu/key
+    networks:
+      besu-network:
+        ipv4_address: 172.20.0.2 # 172.20.0.2 + 0
+    ports:
+      - "8545:8545" # RPC = 8545 + 0: 8545 (does not change)
+      - "9545:9545" # Metrics = 9545 + 0: 9545 (does not change)
+      - "30303:30303" # P2P = 30303 + 0: 30303 (does not change)
+    command:
+      [
+        # besu --data-path=local/1/ --genesis-file=local/genesis.json --miner-enabled --miner-coinbase=0xfe3b557e8fb62b89f4916b721be55ceb828dbd73 --rpc-http-enabled --host-whitelist="*" --rpc-http-cors-origins="*" --rpc-http-port=8545
+
+        # Must parameters
+        "--identity=node-a",
+        "--data-path=/var/lib/besu",
+        "--genesis-file=/var/lib/besu/genesis.json",
+
+        # Miner
+        "--miner-enabled",
+        "--miner-coinbase=0xfe3b557e8fb62b89f4916b721be55ceb828dbd73",
+
+        # Permissioned network parameters
+        # "--permissions-nodes-config-file-enabled",
+        # "--permissions-accounts-config-file-enabled",
+
+        # RPC protocol for requests
+        "--host-whitelist=\"*\"",
+        "--rpc-http-cors-origins=\"*\"",
+
+        # Services
+        "--rpc-http-enabled",
+        "--metrics-enabled=true",
+
+        # Ports
+        "--rpc-http-port=8545",
+        "--p2p-port=30303",
+        "--metrics-port=9545",
+
+        # Peers
+        "--sync-min-peers=3",
+      ]
+
+  node-b:
+    image: hyperledger/besu:latest
+    container_name: node-b
+    hostname: node-b
+    volumes:
+      - ./data/2:/var/lib/besu
+      - ./config/nodes/2/genesis.json:/var/lib/besu/genesis.json
+      - ./config/nodes/2/permissions_config.toml:/var/lib/besu/permissions_config.toml
+      - ./config/nodes/2/key:/var/lib/besu/key
+    networks:
+      besu-network:
+        ipv4_address:  172.20.0.3 # 172.20.0.2 + 1
+    ports:
+      - "8546:8545" # RPC = 8545 + 1: 8545 (does not change)
+      - "9546:9545" # Metrics = 9545 + 1: 9545 (does not change)
+      - "30304:30303" # P2P = 30303 + 1: 30303 (does not change)
+    command:
+      [
+        # besu --data-path=local/2/ --genesis-file=local/genesis.json --bootnodes=enode://4730f6cc03c889ba161a7172f2839d7c7df52e47eb6ba8464680c13fe6a3cab392a51a7703091ee4effc956d6c537b7d45067cbf349bed5ce7474b8547151260@127.0.0.1:30303 --p2p-port=30304
+
+        # Must parameters
+        "--identity=node-b",
+        "--data-path=/var/lib/besu",
+        "--genesis-file=/var/lib/besu/genesis.json",
+
+        # Bootnoodes
+        "--bootnodes=enode://4730f6cc03c889ba161a7172f2839d7c7df52e47eb6ba8464680c13fe6a3cab392a51a7703091ee4effc956d6c537b7d45067cbf349bed5ce7474b8547151260@172.20.0.2:30303",
+
+        # Ports
+        "--p2p-port=30303",
+        "--metrics-port=9545",
+
+        # Permissioned network parameters
+        # "--permissions-nodes-config-file-enabled",
+        # "--permissions-accounts-config-file-enabled",
+
+        # Peers
+        "--sync-min-peers=3",
+
+        # Services
+        "--metrics-enabled=true",
+      ]
 
 networks:
   besu-network:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
