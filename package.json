@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "ethers": "5.7.2",
-    "fs-extra": "^11.2.0",
-    "solc": "^0.8.28",
-    "web3": "^4.15.0"
+    "@truffle/hdwallet-provider": "^2.1.15"
   }
 }
