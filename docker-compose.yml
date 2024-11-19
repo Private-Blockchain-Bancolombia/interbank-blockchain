@@ -21,7 +21,6 @@ services:
     volumes:
       - ./data/1:/var/lib/besu
       - ./config/nodes/1/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/1/permissions_config.toml:/var/lib/besu/permissions_config.toml
       - ./config/nodes/1/key:/var/lib/besu/key
     networks:
       besu-network:
@@ -43,26 +42,32 @@ services:
         "--miner-enabled",
         "--miner-coinbase=0xfe3b557e8fb62b89f4916b721be55ceb828dbd73",
 
-        # Permissioned network parameters
-        "--permissions-nodes-config-file-enabled",
-        "--permissions-accounts-config-file-enabled",
-
         # RPC protocol for requests
         "--host-whitelist=\"*\"",
         "--rpc-http-cors-origins=\"*\"",
-        --rpc-http-api=ADMIN,ETH,NET,PERM,IBFT,
+        "--rpc-http-api=ADMIN,ETH,NET,PERM,IBFT,WEB3,MINER,PLUGINS,PRIV",
 
         # Services
         "--rpc-http-enabled",
+        "--rpc-ws-enabled",
         "--metrics-enabled=true",
+
+        # Hosts
+        "--rpc-http-host=0.0.0.0",
 
         # Ports
         "--rpc-http-port=8545",
         "--p2p-port=30303",
         "--metrics-port=9545",
 
+        # On-chain permissions
+        #"--permissions-accounts-contract-enabled=true",
+        #"--permissions-nodes-contract-enabled=true",
+        #"--permissions-nodes-contract-address=<nodes_contract_address>",
+        #"--permissions-accounts-contract-address=<accounts_contract_address>",
+
         # Peers
-        "--sync-min-peers=3",
+        "--sync-min-peers=1",
       ]
 
   node-b:
@@ -72,11 +77,10 @@ services:
     volumes:
       - ./data/2:/var/lib/besu
       - ./config/nodes/2/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/2/permissions_config.toml:/var/lib/besu/permissions_config.toml
       - ./config/nodes/2/key:/var/lib/besu/key
     networks:
       besu-network:
-        ipv4_address:  172.20.0.4
+        ipv4_address: 172.20.0.4
     ports:
       - "8546:8545"
       - "9546:9545"
@@ -93,20 +97,23 @@ services:
         # Bootnoodes
         "--bootnodes=enode://4730f6cc03c889ba161a7172f2839d7c7df52e47eb6ba8464680c13fe6a3cab392a51a7703091ee4effc956d6c537b7d45067cbf349bed5ce7474b8547151260@172.20.0.3:30303",
 
+        # Services
+        "--rpc-http-enabled",
+        "--metrics-enabled=true",
+
         # Ports
         "--p2p-port=30303",
         "--metrics-port=9545",
         "--rpc-http-port=8545",
 
-        # Permissioned network parameters
-        "--permissions-nodes-config-file-enabled",
-        "--permissions-accounts-config-file-enabled",
+        # On-chain permissions
+        #"--permissions-accounts-contract-enabled=true",
+        #"--permissions-nodes-contract-enabled=true",
+        #"--permissions-nodes-contract-address=<nodes_contract_address>",
+        #"--permissions-accounts-contract-address=<accounts_contract_address>",
 
         # Peers
-        "--sync-min-peers=3",
-
-        # Services
-        "--metrics-enabled=true",
+        "--sync-min-peers=1",
       ]
 
   node-c:
@@ -116,11 +123,10 @@ services:
     volumes:
       - ./data/3:/var/lib/besu
       - ./config/nodes/3/genesis.json:/var/lib/besu/genesis.json
-      - ./config/nodes/3/permissions_config.toml:/var/lib/besu/permissions_config.toml
       - ./config/nodes/3/key:/var/lib/besu/key
     networks:
       besu-network:
-        ipv4_address:  172.20.0.5
+        ipv4_address: 172.20.0.5
     ports:
       - "8547:8545"
       - "9547:9545"
@@ -135,20 +141,24 @@ services:
         # Bootnoodes
         "--bootnodes=enode://4730f6cc03c889ba161a7172f2839d7c7df52e47eb6ba8464680c13fe6a3cab392a51a7703091ee4effc956d6c537b7d45067cbf349bed5ce7474b8547151260@172.20.0.3:30303",
 
+        # Services
+        "--rpc-http-enabled",
+        "--metrics-enabled=true",
+
         # Ports
         "--p2p-port=30303",
         "--metrics-port=9545",
         "--rpc-http-port=8545",
 
-        # Permissioned network parameters
-        "--permissions-nodes-config-file-enabled",
-        "--permissions-accounts-config-file-enabled",
+        # On-chain permissions
+        #"--permissions-accounts-contract-enabled=true",
+        #"--permissions-nodes-contract-enabled=true",
+        #"--permissions-nodes-contract-address=<nodes_contract_address>",
+        #"--permissions-accounts-contract-address=<accounts_contract_address>",
 
         # Peers
-        "--sync-min-peers=3",
+        "--sync-min-peers=1",
 
-        # Services
-        "--metrics-enabled=true",
       ]
 
 networks:
