@@ -10,9 +10,10 @@ services:
     # restart: on-failure
     volumes:
       - ./data/1:/var/lib/besu
-      - ./config/nodes/1/genesis.json:/var/lib/besu/genesis.json
+      - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/1/key:/var/lib/besu/key
       - ./config/nodes/1/key.pub:/var/lib/besu/key.pub
+      - ./config/nodes/1/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.3
@@ -45,15 +46,12 @@ services:
         # p2p
         "--p2p-port=30303",
 
-        # On-chain permissions
-        "--permissions-nodes-contract-version=2",
-        "--permissions-nodes-contract-enabled",
-        "--permissions-accounts-contract-enabled",
-        "--permissions-nodes-contract-address=0x0000000000000000000000000000000000009999",
-        "--permissions-accounts-contract-address=0x0000000000000000000000000000000000008888",
+        # Permissioning config file
+        "--permissions-nodes-config-file-enabled",
+        "--permissions-accounts-config-file-enabled",
 
         # Bootnodes
-        "--bootnodes=enode://9299664c95fd8817917d39a655a38657859eee99e84db0157cbbfb169c0bb1a0c0f30ee2358f5fd9a0526b0657079dcc55527ed653b93d8c38d6fbc98c9724fc@172.20.0.4:30303",
+        "--bootnodes=enode://18808d740470a14ca76548ca37643e69806f562b36453c4f72e36bc9f73e01bce9de5e924f4fd3a2540f748bd9afe198f9076ee9eebc200bb70e928d6cf43d20@172.20.0.4:30303",
       ]
 
   node-b:
@@ -62,9 +60,10 @@ services:
     hostname: node-b
     volumes:
       - ./data/2:/var/lib/besu
-      - ./config/nodes/2/genesis.json:/var/lib/besu/genesis.json
+      - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/2/key:/var/lib/besu/key
       - ./config/nodes/2/key.pub:/var/lib/besu/key.pub
+      - ./config/nodes/2/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.4
@@ -97,12 +96,9 @@ services:
         # p2p
         "--p2p-port=30303",
 
-        # On-chain permissions
-        "--permissions-nodes-contract-version=2",
-        "--permissions-nodes-contract-enabled",
-        "--permissions-accounts-contract-enabled",
-        "--permissions-nodes-contract-address=0x0000000000000000000000000000000000009999",
-        "--permissions-accounts-contract-address=0x0000000000000000000000000000000000008888",
+        # Permissioning config file
+        "--permissions-nodes-config-file-enabled",
+        "--permissions-accounts-config-file-enabled",
 
         # Bootnoodes
         "--bootnodes=enode://69e84b9c135d789b637ba454fdcf7c348b3fcee0713e248c1e3edcc652088563ae5a4fd0698f7f796b875bd8008c9197022e7c15c3680e8b7cb7ec68f8b33dfa@172.20.0.3:30303",
@@ -115,9 +111,10 @@ services:
     hostname: node-c
     volumes:
       - ./data/3:/var/lib/besu
-      - ./config/nodes/3/genesis.json:/var/lib/besu/genesis.json
+      - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/3/key:/var/lib/besu/key
       - ./config/nodes/3/key.pub:/var/lib/besu/key.pub
+      - ./config/nodes/3/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.5
@@ -150,12 +147,9 @@ services:
         # p2p
         "--p2p-port=30303",
 
-        # On-chain permissions
-        "--permissions-nodes-contract-version=2",
-        "--permissions-nodes-contract-enabled",
-        "--permissions-accounts-contract-enabled",
-        "--permissions-nodes-contract-address=0x0000000000000000000000000000000000009999",
-        "--permissions-accounts-contract-address=0x0000000000000000000000000000000000008888",
+        # Permissioning config file
+        "--permissions-nodes-config-file-enabled",
+        "--permissions-accounts-config-file-enabled",
 
         # Bootnoodes
         "--bootnodes=enode://69e84b9c135d789b637ba454fdcf7c348b3fcee0713e248c1e3edcc652088563ae5a4fd0698f7f796b875bd8008c9197022e7c15c3680e8b7cb7ec68f8b33dfa@172.20.0.3:30303,enode://18808d740470a14ca76548ca37643e69806f562b36453c4f72e36bc9f73e01bce9de5e924f4fd3a2540f748bd9afe198f9076ee9eebc200bb70e928d6cf43d20@172.20.0.4:30303",
@@ -167,9 +161,10 @@ services:
     hostname: node-d
     volumes:
       - ./data/4:/var/lib/besu
-      - ./config/nodes/4/genesis.json:/var/lib/besu/genesis.json
+      - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/4/key:/var/lib/besu/key
       - ./config/nodes/4/key.pub:/var/lib/besu/key.pub
+      - ./config/nodes/4/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.6
@@ -202,12 +197,9 @@ services:
         # p2p
         "--p2p-port=30303",
 
-        # On-chain permissions
-        "--permissions-nodes-contract-version=2",
-        "--permissions-nodes-contract-enabled",
-        "--permissions-accounts-contract-enabled",
-        "--permissions-nodes-contract-address=0x0000000000000000000000000000000000009999",
-        "--permissions-accounts-contract-address=0x0000000000000000000000000000000000008888",
+        # Permissioning config file
+        "--permissions-nodes-config-file-enabled",
+        "--permissions-accounts-config-file-enabled",
 
         # Bootnoodes
         "--bootnodes=enode://69e84b9c135d789b637ba454fdcf7c348b3fcee0713e248c1e3edcc652088563ae5a4fd0698f7f796b875bd8008c9197022e7c15c3680e8b7cb7ec68f8b33dfa@172.20.0.3:30303,enode://18808d740470a14ca76548ca37643e69806f562b36453c4f72e36bc9f73e01bce9de5e924f4fd3a2540f748bd9afe198f9076ee9eebc200bb70e928d6cf43d20@172.20.0.4:30303",

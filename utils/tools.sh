@@ -39,3 +39,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":5
 # To get nonce
 
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["'$public_A'", "latest"],"id":1}' $rpc_host_A
+
+# To get list of node allowlist of on-chain permissioning
+
+curl -X POST --data '{"jsonrpc":"2.0","method":"perm_getNodesAllowlist","params":[],"id":1}' $rpc_host_A
