@@ -13,7 +13,7 @@ services:
       - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/1/key:/var/lib/besu/key
       - ./config/nodes/1/key.pub:/var/lib/besu/key.pub
-      - ./config/nodes/1/permissions_config.toml:/var/lib/besu/permissions_config.toml
+      - ./config/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.3
@@ -63,7 +63,7 @@ services:
       - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/2/key:/var/lib/besu/key
       - ./config/nodes/2/key.pub:/var/lib/besu/key.pub
-      - ./config/nodes/2/permissions_config.toml:/var/lib/besu/permissions_config.toml
+      - ./config/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.4
@@ -114,7 +114,7 @@ services:
       - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/3/key:/var/lib/besu/key
       - ./config/nodes/3/key.pub:/var/lib/besu/key.pub
-      - ./config/nodes/3/permissions_config.toml:/var/lib/besu/permissions_config.toml
+      - ./config/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.5
@@ -164,7 +164,7 @@ services:
       - ./config/genesis.json:/var/lib/besu/genesis.json
       - ./config/nodes/4/key:/var/lib/besu/key
       - ./config/nodes/4/key.pub:/var/lib/besu/key.pub
-      - ./config/nodes/4/permissions_config.toml:/var/lib/besu/permissions_config.toml
+      - ./config/permissions_config.toml:/var/lib/besu/permissions_config.toml
     networks:
       besu-network:
         ipv4_address: 172.20.0.6
